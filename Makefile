@@ -14,11 +14,13 @@ NAME = philosopher
 
 SRCS =	main.c \
 		philo_parsing.c \
+		philo_th.c
 
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -g3
+CFLAGS = -Wall -Wextra -Werror -pthread -g3 -fsanitize=address
+
 
 all: ${NAME}
 
