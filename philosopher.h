@@ -29,10 +29,13 @@
 
 typedef struct s_big_brother
 {
-	struct s_philo	**philo;
+	struct s_philo	*philo;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	write;
+	pthread_mutex_t	death_check;
 	time_t			start_time;
+	time_t			*time_until_death;
+	int				*is_alive;
 	int				number_of_philosophers;
 	int				time_to_die;
 	int				time_to_eat;
@@ -45,14 +48,13 @@ typedef struct s_philo
 	t_big_brother	*big_brother;
 	int				index;
 	pthread_mutex_t	*first_fork;
-    pthread_mutex_t	*sec_fork;
+	pthread_mutex_t	*sec_fork;
 	int				dinner_count;
-	int				time_until_death;
 }			t_philo;
 
-int	philo_parsing(t_big_brother *big_brother, int argc, char **argv);
-void* philo_th(t_philo *philo);
-time_t    get_time(void);
+int		philo_parsing(t_big_brother *big_brother, int argc, char **argv);
+void	*philo_th(t_philo *philo);
+time_t	get_time(void);
 void	ft_usleep(int time);
 
 #endif
