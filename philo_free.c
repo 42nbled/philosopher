@@ -26,15 +26,21 @@ void	big_brother_clear(t_big_brother *big_brother)
 	free(big_brother);
 }
 
-void	philo_clear(t_big_brother *big_brother, pthread_t	*philo)
+void	philo_clear(t_big_brother *big_brother, pthread_t *philo)
 {
 	int	i;
 
 	i = 0;
-	while (i < big_brother->number_of_philosophers)
+	while (i < big_brother->number_of_philosophers - 1)
 	{
 		pthread_join(philo[i], NULL);
-		free(&big_brother->philo[i++]);
+        i++;
 	}
+    i = 1;
+    while (i < big_brother->number_of_philosophers)
+    {
+        free(&big_brother->philo[i]);
+        i++;
+    }
 	philo = NULL;
 }

@@ -21,7 +21,7 @@ SRCS =	main.c \
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -pthread -g3
+CFLAGS = -g3 -Wall -Wextra -Werror -pthread
 
 
 all: ${NAME}

@@ -47,6 +47,7 @@ typedef struct s_philo
 {
 	t_big_brother	*big_brother;
 	int				index;
+	pthread_t		philo;
 	int				dinner_count;
 	pthread_mutex_t	*first_fork;
 	pthread_mutex_t	*sec_fork;
