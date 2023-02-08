@@ -12,22 +12,23 @@
 
 #include "philosopher.h"
 
+void	ft_print(t_philo *philo, char *str)
+{
+	pthread_mutex_lock(&philo->big_brother->write);
+	if (philo->big_brother->who_finished
+		!= philo->big_brother->number_of_philosophers)
+		printf("%ld %d %s\n", get_time()
+			- philo->big_brother->start_time, philo->index, str);
+	pthread_mutex_unlock(&philo->big_brother->write);
+}
+
 void	eat(t_philo *philo)
 {
 	pthread_mutex_lock(philo->first_fork);
-	pthread_mutex_lock(&philo->big_brother->write);
-	printf("%ld %d has taken a fork\n", get_time()
-		- philo->big_brother->start_time, philo->index);
-	pthread_mutex_unlock(&philo->big_brother->write);
+	ft_print(philo, "has taken a fork");
 	pthread_mutex_lock(philo->sec_fork);
-	pthread_mutex_lock(&philo->big_brother->write);
-	printf("%ld %d has taken a fork\n", get_time()
-		- philo->big_brother->start_time, philo->index);
-	pthread_mutex_unlock(&philo->big_brother->write);
-	pthread_mutex_lock(&philo->big_brother->write);
-	printf("%ld %d is eating\n", get_time()
-		- philo->big_brother->start_time, philo->index);
-	pthread_mutex_unlock(&philo->big_brother->write);
+	ft_print(philo, "has taken a fork");
+	ft_print(philo, "is eating");
 	pthread_mutex_lock(&philo->big_brother->death_check);
 	philo->big_brother->time_until_death[philo->index
 		- 1] = get_time() + philo->big_brother->time_to_die;
@@ -42,28 +43,35 @@ void	eat(t_philo *philo)
 
 void	ft_sleep(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->big_brother->write);
-	printf("%ld %d is sleeping\n", get_time()
-		- philo->big_brother->start_time, philo->index);
-	pthread_mutex_unlock(&philo->big_brother->write);
+	ft_print(philo, "is sleeping");
 	ft_usleep(philo->big_brother->time_to_sleep);
 }
 
 void	think(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->big_brother->write);
-	printf("%ld %d is thinking\n", get_time()
-		- philo->big_brother->start_time, philo->index);
-	pthread_mutex_unlock(&philo->big_brother->write);
+	ft_print(philo, "is thinking");
 }
 
 void	*philo_th(t_philo *philo)
 {
-	while (1)
+	if (philo->big_brother->number_of_philosophers == 1)
 	{
-		think(philo);
-		eat(philo);
-		ft_sleep(philo);
+		ft_print(philo, "is thinking");
+		ft_print(philo, "has taken a fork");
+		return (NULL);
+	}
+	while (philo->big_brother->who_finished
+		!= philo->big_brother->number_of_philosophers)
+	{
+		if (philo->big_brother->who_finished
+			!= philo->big_brother->number_of_philosophers)
+			think(philo);
+		if (philo->big_brother->who_finished
+			!= philo->big_brother->number_of_philosophers)
+			eat(philo);
+		if (philo->big_brother->who_finished
+			!= philo->big_brother->number_of_philosophers)
+			ft_sleep(philo);
 	}
 	return (NULL);
 }

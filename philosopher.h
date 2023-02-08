@@ -56,5 +56,6 @@ int		philo_parsing(t_big_brother *big_brother, int argc, char **argv);
 void	*philo_th(t_philo *philo);
 time_t	get_time(void);
 void	ft_usleep(int time);
-
+void	big_brother_clear(t_big_brother *big_brother);
+void	philo_clear(t_big_brother *big_brother, pthread_t	*philo);
 #endif
