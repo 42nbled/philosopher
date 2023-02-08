@@ -55,22 +55,25 @@ void	big_brother_init(t_big_brother *big_brother)
 
 void	philo_launch(t_big_brother *big_brother)
 {
-	pthread_t	philo[big_brother->number_of_philosophers];
+	pthread_t	*philo;
 	int			i;
 
+	philo = malloc(sizeof(pthread_t) * big_brother->number_of_philosophers);
+	if (!philo)
+		return ;
 	i = 1;
 	while (i % 2 == 1 && i <= big_brother->number_of_philosophers)
 	{
-		pthread_create(philo + i, NULL, (void *)philo_th
-			, philo_init(big_brother, i));
+		pthread_create(philo + i, NULL, (void *)philo_th,
+			philo_init(big_brother, i));
 		i += 2;
 	}
 	i = 2;
-	ft_usleep(2);
+	ft_usleep(20);
 	while (i % 2 == 0 && i <= big_brother->number_of_philosophers)
 	{
-		pthread_create(philo + i, NULL, (void *)philo_th
-			, philo_init(big_brother, i));
+		pthread_create(philo + i, NULL, (void *)philo_th,
+			philo_init(big_brother, i));
 		i += 2;
 	}
 }
