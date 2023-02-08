@@ -78,9 +78,9 @@ int	philo_parsing(t_big_brother *big_brother, int argc, char **argv)
 		big_brother->time_to_sleep = ft_atoi(argv[4]);
 	else
 		return (0);
-	big_brother->number_of_times_each_philosopher_must_eat = -1;
+	big_brother->number_of_eat = -1;
 	if (argc == 6 && is_number(argv[5]))
-		big_brother->number_of_times_each_philosopher_must_eat
+		big_brother->number_of_eat
 			= ft_atoi(argv[5]);
 	else if (argc == 6)
 		return (0);

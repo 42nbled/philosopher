@@ -14,7 +14,8 @@ NAME = philosopher
 
 SRCS =	main.c \
 		philo_parsing.c \
-		philo_th.c
+		philo_th.c \
+		philo_utils.c
 
 OBJS = $(SRCS:.c=.o)
 

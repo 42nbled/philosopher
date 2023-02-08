@@ -35,12 +35,12 @@ typedef struct s_big_brother
 	pthread_mutex_t	death_check;
 	time_t			start_time;
 	time_t			*time_until_death;
-	int				*is_alive;
 	int				number_of_philosophers;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				number_of_times_each_philosopher_must_eat;
+	int				number_of_eat;
+	int				who_finished;
 }			t_big_brother;
 
 typedef struct s_philo
