@@ -63,16 +63,16 @@ void	*philo_th(t_philo *philo)
 		return (NULL);
 	}
 	while (philo->big_brother->who_finished
-		!= philo->big_brother->number_of_philosophers)
+		< philo->big_brother->number_of_philosophers)
 	{
 		if (philo->big_brother->who_finished
-			!= philo->big_brother->number_of_philosophers)
+			< philo->big_brother->number_of_philosophers)
 			think(philo);
 		if (philo->big_brother->who_finished
-			!= philo->big_brother->number_of_philosophers)
+			< philo->big_brother->number_of_philosophers)
 			eat(philo);
 		if (philo->big_brother->who_finished
-			!= philo->big_brother->number_of_philosophers)
+			< philo->big_brother->number_of_philosophers)
 			ft_sleep(philo);
 	}
 	return (NULL);

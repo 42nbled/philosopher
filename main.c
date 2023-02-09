@@ -23,12 +23,13 @@ void	*philo_init(t_big_brother *big_brother, int i)
 		= big_brother->start_time + big_brother->time_to_die;
 	philo->index = i;
 	philo->dinner_count = 0;
-	philo->first_fork = &big_brother->fork[i];
+	philo->first_fork = &big_brother->fork[i - 1];
 	if (i == big_brother->number_of_philosophers)
-		philo->sec_fork = &big_brother->fork[1];
+		philo->sec_fork = &big_brother->fork[0];
 	else
-		philo->sec_fork = &big_brother->fork[i + 1];
+		philo->sec_fork = &big_brother->fork[i];
 	philo->big_brother = big_brother;
+	big_brother->philo[i - 1] = *philo;
 	return (philo);
 }
 
@@ -37,6 +38,10 @@ int	big_brother_init(t_big_brother *big_brother)
 	int			i;
 
 	i = 0;
+	big_brother->philo = malloc(sizeof (t_philo)
+			* big_brother->number_of_philosophers);
+	if (!big_brother->philo)
+		return (0);
 	big_brother->fork = malloc(sizeof (pthread_mutex_t)
 			* big_brother->number_of_philosophers);
 	if (!big_brother->fork)
@@ -65,7 +70,7 @@ pthread_t	*philo_launch(t_big_brother *big_brother)
 		return ((void *) NULL);
 	while (i <= big_brother->number_of_philosophers)
 	{
-		if (pthread_create(philo + i, NULL, (void *)philo_th,
+		if (pthread_create(philo + (i - 1), NULL, (void *)philo_th,
 				philo_init(big_brother, i)))
 			return ((void *) NULL);
 		i += 2;
@@ -74,7 +79,7 @@ pthread_t	*philo_launch(t_big_brother *big_brother)
 	ft_usleep(50);
 	while (i <= big_brother->number_of_philosophers)
 	{
-		if (pthread_create(philo + i, NULL, (void *)philo_th,
+		if (pthread_create(philo + (i - 1), NULL, (void *)philo_th,
 				philo_init(big_brother, i)))
 			return ((void *) NULL);
 		i += 2;
@@ -93,7 +98,7 @@ void	death_cycle(t_big_brother *big_brother, int i)
 		if (big_brother->time_until_death[i] <= get_time())
 		{
 			big_brother->who_finished = big_brother->number_of_philosophers;
-			pthread_mutex_lock(&big_brother->write);
+			pthread_mutex_unlock(&big_brother->death_check);
 			usleep(10);
 			printf("%ld %d died\n", get_time()
 				- big_brother->start_time, i + 1);
@@ -101,7 +106,8 @@ void	death_cycle(t_big_brother *big_brother, int i)
 		}
 		if (big_brother->who_finished == big_brother->number_of_philosophers)
 		{
-			pthread_mutex_lock(&big_brother->write);
+			big_brother->who_finished = big_brother->number_of_philosophers;
+			pthread_mutex_unlock(&big_brother->death_check);
 			usleep(10);
 			return ;
 		}
@@ -115,9 +121,7 @@ int	main(int argc, char **argv)
 {
 	t_big_brother	*big_brother;
 	pthread_t		*philo;
-	int				i;
-
-	i = 1;
+	
 	big_brother = malloc(sizeof(t_big_brother));
 	if (!big_brother)
 		return (0);
