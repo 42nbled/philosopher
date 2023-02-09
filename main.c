@@ -6,7 +6,7 @@
 /*   By: acoezard <acoezard@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 21:19:48 by nbled             #+#    #+#             */
-/*   Updated: 2023/02/09 16:29:44 by acoezard         ###   ########.fr       */
+/*   Updated: 2023/02/09 16:39:56 by acoezard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ int	main(int argc, char **argv)
 		printf(RED"Error\n"END);
 		return (0);
 	}
-	if (big_brother_init(big_brother) == 1)
+	int init = big_brother_init(big_brother);
+	if (init == 1)
 	{
 		philo = philo_launch(big_brother);
 		if (philo)
