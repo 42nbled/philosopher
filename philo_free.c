@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbled <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: acoezard <acoezard@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:26:38 by nbled             #+#    #+#             */
-/*   Updated: 2023/02/08 14:26:41 by nbled            ###   ########.fr       */
+/*   Updated: 2023/02/09 16:35:13 by acoezard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,12 @@ void	philo_clear(t_big_brother *big_brother, pthread_t *philo)
 {
 	int	i;
 
-	i = 0;
-	while (i < big_brother->number_of_philosophers )
-	{
-		pthread_join(philo[i], NULL);
-        i++;
-	}
     i = 0;
     while (i < big_brother->number_of_philosophers)
     {
+		pthread_join(philo[i], NULL);
         free(&big_brother->philo[i]);
         i++;
     }
-	return ;
-	philo = NULL;
+	free(big_brother->philo);
 }

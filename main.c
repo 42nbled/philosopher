@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbled <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: acoezard <acoezard@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 21:19:48 by nbled             #+#    #+#             */
-/*   Updated: 2022/12/12 21:19:50 by nbled            ###   ########.fr       */
+/*   Updated: 2023/02/09 16:29:44 by acoezard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,17 @@ int	big_brother_init(t_big_brother *big_brother)
 	int			i;
 
 	i = 0;
-	big_brother->philo = malloc(sizeof (t_philo)
-			* big_brother->number_of_philosophers);
+	// remplacer calloc par ton ft_calloc
+	// si tes structs de philo son malloc: fais un sizeof de t_philo* et pas t_philo
+	big_brother->philo = calloc(big_brother->number_of_philosophers + 1, sizeof(t_philo*));
 	if (!big_brother->philo)
 		return (0);
-	big_brother->fork = malloc(sizeof (pthread_mutex_t)
-			* big_brother->number_of_philosophers);
+	// remplacer calloc par ton ft_calloc
+	big_brother->fork = calloc((big_brother->number_of_philosophers + 1), sizeof(pthread_mutex_t*));
 	if (!big_brother->fork)
 		return (0);
-	big_brother->time_until_death
-		= malloc(sizeof(time_t) * big_brother->number_of_philosophers);
+	// remplacer calloc par ton ft_calloc
+	big_brother->time_until_death = calloc(big_brother->number_of_philosophers + 1, sizeof(time_t));
 	if (!big_brother->time_until_death)
 		return (0);
 	while (i < big_brother->number_of_philosophers)
@@ -121,7 +122,7 @@ int	main(int argc, char **argv)
 {
 	t_big_brother	*big_brother;
 	pthread_t		*philo;
-	
+
 	big_brother = malloc(sizeof(t_big_brother));
 	if (!big_brother)
 		return (0);
