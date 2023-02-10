@@ -76,7 +76,7 @@ pthread_t	*philo_launch(t_big_brother *big_brother)
 		i += 2;
 	}
 	i = 2;
-	ft_usleep(50);
+	ft_usleep(5);
 	while (i <= big_brother->number_of_philosophers)
 	{
 		if (pthread_create(philo + (i - 1), NULL, (void *)philo_th,
@@ -100,8 +100,7 @@ void	death_cycle(t_big_brother *big_brother, int i)
 			big_brother->who_finished = big_brother->number_of_philosophers;
 			pthread_mutex_unlock(&big_brother->death_check);
 			usleep(10);
-			printf("%ld %d died\n", get_time()
-				- big_brother->start_time, i + 1);
+			printf("%ld %d died\n", get_time() - big_brother->start_time, i + 1);
 			return ;
 		}
 		if (big_brother->who_finished == big_brother->number_of_philosophers)
@@ -121,13 +120,14 @@ int	main(int argc, char **argv)
 {
 	t_big_brother	*big_brother;
 	pthread_t		*philo;
-	
+
 	big_brother = malloc(sizeof(t_big_brother));
 	if (!big_brother)
 		return (0);
 	if (philo_parsing(big_brother, argc, argv) == 0)
 	{
 		printf(RED"Error\n"END);
+		free(big_brother);
 		return (0);
 	}
 	if (big_brother_init(big_brother) == 1)

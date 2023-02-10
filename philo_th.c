@@ -60,6 +60,7 @@ void	*philo_th(t_philo *philo)
 	{
 		ft_print(philo, "is thinking");
 		ft_print(philo, "has taken a fork");
+		free(philo);
 		return (NULL);
 	}
 	while (philo->big_brother->who_finished
@@ -75,5 +76,6 @@ void	*philo_th(t_philo *philo)
 			< philo->big_brother->number_of_philosophers)
 			ft_sleep(philo);
 	}
+	free(philo);
 	return (NULL);
 }
