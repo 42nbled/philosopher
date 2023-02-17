@@ -26,10 +26,24 @@ void	ft_print(t_philo *philo, char *str)
 
 void	eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->first_fork);
-	ft_print(philo, "has taken a fork");
-	pthread_mutex_lock(philo->sec_fork);
-	ft_print(philo, "has taken a fork");
+	if (philo->index % 2)
+	{
+		pthread_mutex_lock(philo->first_fork);
+		ft_print(philo, "has taken a fork");
+		pthread_mutex_lock(philo->sec_fork);
+		ft_print(philo, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(philo->sec_fork);
+		ft_print(philo, "has taken a fork");
+		pthread_mutex_lock(philo->first_fork);
+		ft_print(philo, "has taken a fork");
+	}
+	// pthread_mutex_lock(philo->first_fork);
+	// ft_print(philo, "has taken a fork");
+	// pthread_mutex_lock(philo->sec_fork);
+	// ft_print(philo, "has taken a fork");
 	ft_print(philo, "is eating");
 	pthread_mutex_lock(&philo->big_brother->death_check);
 	philo->big_brother->time_until_death[philo->index
@@ -37,8 +51,10 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->big_brother->death_check);
 	ft_usleep(philo->big_brother->time_to_eat);
 	philo->dinner_count++;
+	pthread_mutex_lock(&philo->big_brother->death_check);
 	if (philo->dinner_count == philo->big_brother->number_of_eat)
 		philo->big_brother->who_finished++;
+	pthread_mutex_unlock(&philo->big_brother->death_check);
 	pthread_mutex_unlock(philo->sec_fork);
 	pthread_mutex_unlock(philo->first_fork);
 }
@@ -63,19 +79,19 @@ void	*philo_th(t_philo *philo)
 		free(philo);
 		return (NULL);
 	}
-	while (philo->big_brother->who_finished
-		< philo->big_brother->number_of_philosophers)
+	while (1)
 	{
+		think(philo);
+		eat(philo);
+		ft_sleep(philo);
+		pthread_mutex_lock(&philo->big_brother->death_check);
 		if (philo->big_brother->who_finished
-			< philo->big_brother->number_of_philosophers)
-			think(philo);
-		if (philo->big_brother->who_finished
-			< philo->big_brother->number_of_philosophers)
-			eat(philo);
-		if (philo->big_brother->who_finished
-			< philo->big_brother->number_of_philosophers)
-			ft_sleep(philo);
+			>= philo->big_brother->number_of_philosophers)
+		{
+			pthread_mutex_unlock(&philo->big_brother->death_check);
+			free(philo);
+			return (NULL);
+		}
+		pthread_mutex_unlock(&philo->big_brother->death_check);
 	}
-	free(philo);
-	return (NULL);
 }

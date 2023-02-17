@@ -89,7 +89,7 @@ pthread_t	*philo_launch(t_big_brother *big_brother)
 
 void	death_cycle(t_big_brother *big_brother, int i)
 {
-	usleep (2000);
+	usleep (1000);
 	while (1)
 	{
 		if (i == big_brother->number_of_philosophers)
@@ -111,7 +111,6 @@ void	death_cycle(t_big_brother *big_brother, int i)
 			return ;
 		}
 		pthread_mutex_unlock(&big_brother->death_check);
-		usleep(500);
 		i++;
 	}
 }

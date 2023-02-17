@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philosopher
+NAME = philo
 
 SRCS =	main.c \
 		philo_parsing.c \
@@ -21,7 +21,7 @@ SRCS =	main.c \
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
-CFLAGS = -g3 -Wall -Wextra -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror
 
 
 all: ${NAME}
