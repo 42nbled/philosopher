@@ -26,24 +26,10 @@ void	ft_print(t_philo *philo, char *str)
 
 void	eat(t_philo *philo)
 {
-	if (philo->index % 2)
-	{
-		pthread_mutex_lock(philo->first_fork);
-		ft_print(philo, "has taken a fork");
-		pthread_mutex_lock(philo->sec_fork);
-		ft_print(philo, "has taken a fork");
-	}
-	else
-	{
-		pthread_mutex_lock(philo->sec_fork);
-		ft_print(philo, "has taken a fork");
-		pthread_mutex_lock(philo->first_fork);
-		ft_print(philo, "has taken a fork");
-	}
-	// pthread_mutex_lock(philo->first_fork);
-	// ft_print(philo, "has taken a fork");
-	// pthread_mutex_lock(philo->sec_fork);
-	// ft_print(philo, "has taken a fork");
+	pthread_mutex_lock(philo->first_fork);
+	ft_print(philo, "has taken a fork");
+	pthread_mutex_lock(philo->sec_fork);
+	ft_print(philo, "has taken a fork");
 	ft_print(philo, "is eating");
 	pthread_mutex_lock(&philo->big_brother->death_check);
 	philo->big_brother->time_until_death[philo->index

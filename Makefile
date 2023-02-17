@@ -14,6 +14,7 @@ NAME = philo
 
 SRCS =	main.c \
 		philo_parsing.c \
+		philo_init.c \
 		philo_th.c \
 		philo_utils.c \
 		philo_free.c

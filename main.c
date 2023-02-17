@@ -12,27 +12,6 @@
 
 #include "philosopher.h"
 
-void	*philo_init(t_big_brother *big_brother, int i)
-{
-	t_philo	*philo;
-
-	philo = malloc(sizeof(t_philo));
-	if (!philo)
-		return (NULL);
-	big_brother->time_until_death[i - 1]
-		= big_brother->start_time + big_brother->time_to_die;
-	philo->index = i;
-	philo->dinner_count = 0;
-	philo->first_fork = &big_brother->fork[i - 1];
-	if (i == big_brother->number_of_philosophers)
-		philo->sec_fork = &big_brother->fork[0];
-	else
-		philo->sec_fork = &big_brother->fork[i];
-	philo->big_brother = big_brother;
-	big_brother->philo[i - 1] = *philo;
-	return (philo);
-}
-
 int	big_brother_init(t_big_brother *big_brother)
 {
 	int			i;
