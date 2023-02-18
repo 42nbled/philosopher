@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nbled <marvin@42.fr>                       +#+  +:+       +#+         #
+#    By: nbled <nbled@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/12 22:36:13 by nbled             #+#    #+#              #
-#    Updated: 2022/12/12 22:36:14 by nbled            ###   ########.fr        #
+#    Updated: 2023/02/17 22:13:28 by nbled            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,7 @@ SRCS =	main.c \
 OBJS = $(SRCS:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-
+CFLAGS = -Wall -Wextra -Werror -pthread
 
 all: ${NAME}
 

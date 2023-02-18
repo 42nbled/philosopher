@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_th.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbled <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nbled <nbled@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/02 22:27:29 by nbled             #+#    #+#             */
-/*   Updated: 2023/02/02 22:27:31 by nbled            ###   ########.fr       */
+/*   Updated: 2023/02/17 22:08:14 by nbled            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_print(t_philo *philo, char *str)
 	pthread_mutex_lock(&philo->big_brother->write);
 	pthread_mutex_lock(&philo->big_brother->death_check);
 	if (philo->big_brother->who_finished
-		!= philo->big_brother->number_of_philosophers)
+		< philo->big_brother->number_of_philosophers)
 		printf("%ld %d %s\n", get_time()
 			- philo->big_brother->start_time, philo->index, str);
 	pthread_mutex_unlock(&philo->big_brother->death_check);

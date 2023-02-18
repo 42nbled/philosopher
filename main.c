@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbled <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nbled <nbled@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 21:19:48 by nbled             #+#    #+#             */
-/*   Updated: 2022/12/12 21:19:50 by nbled            ###   ########.fr       */
+/*   Updated: 2023/02/17 22:10:04 by nbled            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+# include <pthread.h>
 #include "philosopher.h"
 
 int	big_brother_init(t_big_brother *big_brother)
