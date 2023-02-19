@@ -56,6 +56,7 @@ typedef struct s_philo
 int		philo_parsing(t_big_brother *big_brother, int argc, char **argv);
 void	*philo_init(t_big_brother *big_brother, int i);
 void	*philo_th(t_philo *philo);
+void	ft_print(t_philo *philo, char *str);
 time_t	get_time(void);
 void	ft_usleep(int time);
 void	big_brother_clear(t_big_brother *big_brother);

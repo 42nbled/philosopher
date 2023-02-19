@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <pthread.h>
 #include "philosopher.h"
 
 int	big_brother_init(t_big_brother *big_brother)

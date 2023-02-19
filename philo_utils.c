@@ -12,6 +12,18 @@
 
 #include "philosopher.h"
 
+void	ft_print(t_philo *philo, char *str)
+{
+	pthread_mutex_lock(&philo->big_brother->write);
+	pthread_mutex_lock(&philo->big_brother->death_check);
+	if (philo->big_brother->who_finished
+		< philo->big_brother->number_of_philosophers)
+		printf("%ld %d %s\n", get_time()
+			- philo->big_brother->start_time, philo->index, str);
+	pthread_mutex_unlock(&philo->big_brother->death_check);
+	pthread_mutex_unlock(&philo->big_brother->write);
+}
+
 void	ft_usleep(int time)
 {
 	usleep(time * 1000);

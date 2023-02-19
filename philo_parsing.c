@@ -54,7 +54,7 @@ int	philo_parsing(t_big_brother *big_brother, int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (0);
-	if (is_number(argv[1]) && ft_atoi(argv[1]) > 0)
+	if (is_number(argv[1]) && ft_atoi(argv[1]) > 0 && ft_atoi(argv[1]) < 1000)
 		big_brother->number_of_philosophers = ft_atoi(argv[1]);
 	else
 		return (0);
