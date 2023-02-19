@@ -6,7 +6,7 @@
 /*   By: nbled <nbled@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 01:19:48 by nbled             #+#    #+#             */
-/*   Updated: 2023/02/18 00:58:00 by nbled            ###   ########.fr       */
+/*   Updated: 2023/02/19 17:33:13 by nbled            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 void	fork_init(t_big_brother *big_brother, t_philo *philo, int i)
 {
-	if (i == big_brother->number_of_philosophers)
-	{
-		philo->first_fork = &big_brother->fork[0];
-		philo->sec_fork = &big_brother->fork[i - 1];
-		return ;
-	}
 	philo->first_fork = &big_brother->fork[i - 1];
-	philo->sec_fork = &big_brother->fork[i];
+	if (i == big_brother->number_of_philosophers)
+		philo->sec_fork = &big_brother->fork[0];
+	else
+		philo->sec_fork = &big_brother->fork[i];
 	return ;
 }
 
