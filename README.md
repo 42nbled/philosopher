@@ -1,0 +1,3 @@
+#  Philosophers
+
+The philo project challenges you to simulate the classic "Dining Philosophers" problem using threads and mutexes in C. Each philosopher alternates between eating, sleeping, and thinking while sharing forks with their neighbors. Proper synchronization is crucial to prevent data races and deadlocks. The program must manage timing accurately to ensure philosophers eat before starving, with their state changes logged in real-time. This project sharpens skills in concurrency, thread management, and resource synchronization while adhering to strict performance and timing constraints.
